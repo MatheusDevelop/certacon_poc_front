@@ -4,10 +4,9 @@ import useSWR from "swr";
 import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid";
 
-const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const { data: tableData, error } = useSWR(
-    "http://localhost:8080/documentos",
+    "http://localhost:8080/documents",
     (url: string) => axios.get(url).then((r) => r.data)
   );
   if (error) return <div>Ocorreu um erro ao carregar os dados</div>;

@@ -24,7 +24,7 @@ export default function Home() {
           </Alert>
         </div>
       )}
-      <Backdrop sx={{ color: "#fff", zIndex: 99 }} open={!tableData}>
+      <Backdrop sx={{ color: "#fff", zIndex: 99 }} open={!tableData && !error}>
         <CircularProgress color="inherit" />
       </Backdrop>
       {tableData && <Table tableData={tableData} columns={columns} />}

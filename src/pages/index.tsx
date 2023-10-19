@@ -1,16 +1,12 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
 import useSWR from "swr";
 import axios from "axios";
-import { DataGrid } from "@mui/x-data-grid";
+import useTableData from "@/hooks/useTableData";
+import Table from "../components/Table";
+import { Backdrop, CircularProgress } from "@mui/material";
 
 export default function Home() {
-  const { data: tableData, error } = useSWR(
-    "http://localhost:8080/documents",
-    (url: string) => axios.get(url).then((r) => r.data)
-  );
+  const { tableData, error } = useTableData();
   if (error) return <div>Ocorreu um erro ao carregar os dados</div>;
-  if (!tableData) return <div>Carregando...</div>;
   const columns = [
     { field: "numero", headerName: "Nº", width: 50 },
     { field: "campo", headerName: "Campo", width: 150 },
@@ -24,12 +20,10 @@ export default function Home() {
 
   return (
     <div className="h-screen w-screen p-5 bg-white">
-      <DataGrid
-        rows={tableData}
-        columns={columns}
-        className="shadow-lg"
-        getRowId={(row) => row.idDocumento}
-      />
+      <Backdrop sx={{ color: "#fff", zIndex: 99 }} open={!tableData}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      {tableData && <Table tableData={tableData} columns={columns} />}
     </div>
   );
 }

@@ -1,5 +1,3 @@
-import useSWR from "swr";
-import axios from "axios";
 import useTableData from "@/hooks/useTableData";
 import Table from "../components/Table";
 import { Alert, Backdrop, CircularProgress } from "@mui/material";
